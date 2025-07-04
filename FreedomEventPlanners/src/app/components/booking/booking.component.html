@@ -1,0 +1,270 @@
+ <div class="booking-page" *ngIf="event">
+      <div class="container">
+        <div class="booking-header">
+          <a [routerLink]="['/events', event.id]" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Event Details
+          </a>
+          <h1>Book Your Event</h1>
+          <p>Complete the form below to book "{{event.title}}"</p>
+        </div>
+
+        <div class="booking-grid">
+          <!-- Booking Form -->
+          <div class="booking-form-section">
+            <div class="form-card">
+              <h2>Event Details</h2>
+              
+              <form class="booking-form" (ngSubmit)="onSubmit()" #bookingForm="ngForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fas fa-calendar"></i>
+                      Event Date
+                    </label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      [(ngModel)]="bookingData.date"
+                      name="date"
+                      required
+                      [min]="minDate"
+                      #date="ngModel"
+                    >
+                    <div class="error-message" *ngIf="date.invalid && date.touched">
+                      Please select a valid date
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fas fa-clock"></i>
+                      Event Time
+                    </label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="bookingData.time"
+                      name="time"
+                      required
+                      #time="ngModel"
+                    >
+                      <option value="">Select time</option>
+                      <option value="09:00">9:00 AM</option>
+                      <option value="10:00">10:00 AM</option>
+                      <option value="11:00">11:00 AM</option>
+                      <option value="12:00">12:00 PM</option>
+                      <option value="13:00">1:00 PM</option>
+                      <option value="14:00">2:00 PM</option>
+                      <option value="15:00">3:00 PM</option>
+                      <option value="16:00">4:00 PM</option>
+                      <option value="17:00">5:00 PM</option>
+                      <option value="18:00">6:00 PM</option>
+                    </select>
+                    <div class="error-message" *ngIf="time.invalid && time.touched">
+                      Please select a time
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-users"></i>
+                    Number of Guests
+                  </label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="bookingData.guests"
+                    name="guests"
+                    placeholder="Enter number of guests"
+                    required
+                    min="1"
+                    [max]="event.maxGuests"
+                    #guests="ngModel"
+                  >
+                  <div class="form-hint">Maximum {{event.maxGuests}} guests for this event</div>
+                  <div class="error-message" *ngIf="guests.invalid && guests.touched">
+                    Please enter a valid number of guests (1-{{event.maxGuests}})
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-comment"></i>
+                    Special Requests (Optional)
+                  </label>
+                  <textarea
+                    class="form-control"
+                    [(ngModel)]="bookingData.specialRequests"
+                    name="specialRequests"
+                    placeholder="Any special requirements or requests for your event..."
+                    rows="4"
+                  ></textarea>
+                </div>
+
+                <h3>Contact Information</h3>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fas fa-user"></i>
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="bookingData.contactInfo.name"
+                      name="contactName"
+                      placeholder="Enter your full name"
+                      required
+                      #contactName="ngModel"
+                    >
+                    <div class="error-message" *ngIf="contactName.invalid && contactName.touched">
+                      Please enter your full name
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fas fa-envelope"></i>
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      [(ngModel)]="bookingData.contactInfo.email"
+                      name="contactEmail"
+                      placeholder="Enter your email"
+                      required
+                      email
+                      #contactEmail="ngModel"
+                    >
+                    <div class="error-message" *ngIf="contactEmail.invalid && contactEmail.touched">
+                      Please enter a valid email address
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <i class="fas fa-phone"></i>
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    [(ngModel)]="bookingData.contactInfo.phone"
+                    name="contactPhone"
+                    placeholder="Enter your phone number"
+                    required
+                    #contactPhone="ngModel"
+                  >
+                  <div class="error-message" *ngIf="contactPhone.invalid && contactPhone.touched">
+                    Please enter your phone number
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-large"
+                    [disabled]="bookingForm.invalid || isLoading"
+                  >
+                    <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+                    <i class="fas fa-calendar-check" *ngIf="!isLoading"></i>
+                    {{isLoading ? 'Processing...' : 'Confirm Booking'}}
+                  </button>
+                </div>
+
+                <div class="error-message" *ngIf="errorMessage">
+                  <i class="fas fa-exclamation-circle"></i>
+                  {{errorMessage}}
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Booking Summary -->
+          <div class="booking-summary">
+            <div class="summary-card">
+              <h3>Booking Summary</h3>
+              
+              <div class="event-preview">
+                <img [src]="event.image" [alt]="event.title">
+                <div class="event-info">
+                  <h4>{{event.title}}</h4>
+                  <p>{{event.category}} Event</p>
+                </div>
+              </div>
+
+              <div class="summary-details">
+                <div class="detail-row" *ngIf="bookingData.date">
+                  <span class="label">Date:</span>
+                  <span class="value">{{formatDate(bookingData.date)}}</span>
+                </div>
+                <div class="detail-row" *ngIf="bookingData.time">
+                  <span class="label">Time:</span>
+                  <span class="value">{{formatTime(bookingData.time)}}</span>
+                </div>
+                <div class="detail-row" *ngIf="bookingData.guests">
+                  <span class="label">Guests:</span>
+                  <span class="value">{{bookingData.guests}} people</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Duration:</span>
+                  <span class="value">{{event.duration}}</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Location:</span>
+                  <span class="value">{{event.location}}</span>
+                </div>
+              </div>
+
+              <div class="price-breakdown">
+                <div class="price-row">
+                  <span>Base Price:</span>
+                  <span>{{event.price | currency}}</span>
+                </div>
+                <div class="price-row" *ngIf="bookingData.guests > 50">
+                  <span>Additional Guests:</span>
+                  <span>{{getAdditionalGuestFee() | currency}}</span>
+                </div>
+                <div class="price-row total">
+                  <span>Total:</span>
+                  <span>{{getTotalPrice() | currency}}</span>
+                </div>
+              </div>
+
+              <div class="included-features">
+                <h4>What's Included:</h4>
+                <ul>
+                  <li *ngFor="let feature of event.features.slice(0, 5)">
+                    <i class="fas fa-check"></i>
+                    {{feature}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading-container" *ngIf="!event && !notFound">
+      <div class="loading-spinner"></div>
+      <p>Loading event details...</p>
+    </div>
+
+    <div class="not-found" *ngIf="notFound">
+      <div class="container">
+        <div class="not-found-content">
+          <i class="fas fa-calendar-times"></i>
+          <h2>Event Not Found</h2>
+          <p>The event you're trying to book doesn't exist.</p>
+          <a routerLink="/events" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i>
+            Back to Events
+          </a>
+        </div>
+      </div>
+    </div>

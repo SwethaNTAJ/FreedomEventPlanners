@@ -1,0 +1,140 @@
+ 
+ <div class="events-page">
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <div class="header-content">
+            <h1>Our Event Packages</h1>
+            <p>Choose from our carefully curated selection of premium event planning services</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section class="filters py-4">
+        <div class="container">
+          <div class="filter-tabs">
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'All'"
+              (click)="filterByCategory('All')"
+            >
+              <i class="fas fa-th"></i>
+              All Events
+            </button>
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'Wedding'"
+              (click)="filterByCategory('Wedding')"
+            >
+              <i class="fas fa-heart"></i>
+              Weddings
+            </button>
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'Corporate'"
+              (click)="filterByCategory('Corporate')"
+            >
+              <i class="fas fa-briefcase"></i>
+              Corporate
+            </button>
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'Birthday'"
+              (click)="filterByCategory('Birthday')"
+            >
+              <i class="fas fa-birthday-cake"></i>
+              Birthdays
+            </button>
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'Anniversary'"
+              (click)="filterByCategory('Anniversary')"
+            >
+              <i class="fas fa-ring"></i>
+              Anniversaries
+            </button>
+            <button 
+              class="filter-tab"
+              [class.active]="selectedCategory === 'Graduation'"
+              (click)="filterByCategory('Graduation')"
+            >
+              <i class="fas fa-graduation-cap"></i>
+              Graduations
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Grid -->
+      <section class="events-grid py-4">
+        <div class="container">
+          <div class="loading" *ngIf="isLoading">
+            <div class="loading-spinner"></div>
+            <p>Loading events...</p>
+          </div>
+
+          <div class="grid" *ngIf="!isLoading && filteredEvents.length > 0">
+            <div class="event-card" *ngFor="let event of filteredEvents">
+              <div class="event-image">
+                <img [src]="event.image" [alt]="event.title">
+                <div class="event-category">{{event.category}}</div>
+                <div class="event-overlay">
+                  <a [routerLink]="['/events', event.id]" class="btn btn-primary">
+                    <i class="fas fa-eye"></i>
+                    View Details
+                  </a>
+                </div>
+              </div>
+              
+              <div class="event-content">
+                <h3>{{event.title}}</h3>
+                <p>{{event.description}}</p>
+                
+                <div class="event-features">
+                  <div class="feature" *ngFor="let feature of event.features.slice(0, 3)">
+                    <i class="fas fa-check"></i>
+                    <span>{{feature}}</span>
+                  </div>
+                  <div class="more-features" *ngIf="event.features.length > 3">
+                    +{{event.features.length - 3}} more features
+                  </div>
+                </div>
+                
+                <div class="event-details">
+                  <div class="detail-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>{{event.price | currency}}</span>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>{{event.duration}}</span>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-users"></i>
+                    <span>Up to {{event.maxGuests}} guests</span>
+                  </div>
+                </div>
+                
+                <div class="event-actions">
+                  <a [routerLink]="['/events', event.id]" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                  </a>
+                  <a [routerLink]="['/book', event.id]" class="btn btn-primary">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="no-events" *ngIf="!isLoading && filteredEvents.length === 0">
+            <i class="fas fa-calendar-times"></i>
+            <h3>No events found</h3>
+            <p>Try selecting a different category or check back later for new events.</p>
+          </div>
+        </div>
+      </section>
+    </div>

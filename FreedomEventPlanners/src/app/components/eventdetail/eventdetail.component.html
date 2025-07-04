@@ -1,0 +1,173 @@
+ <div class="event-detail" *ngIf="event">
+      <!-- Hero Section -->
+      <section class="event-hero">
+        <div class="hero-image">
+          <img [src]="event.image" [alt]="event.title">
+          <div class="hero-overlay">
+            <div class="container">
+              <div class="hero-content">
+                <div class="event-category">{{event.category}}</div>
+                <h1>{{event.title}}</h1>
+                <p>{{event.description}}</p>
+                <div class="hero-actions">
+                  <a [routerLink]="['/book', event.id]" class="btn btn-primary btn-large">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book This Event
+                  </a>
+                  <a routerLink="/events" class="btn btn-secondary btn-large">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Events
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Event Details -->
+      <section class="event-info py-4">
+        <div class="container">
+          <div class="info-grid">
+            <!-- Main Info -->
+            <div class="main-info">
+              <div class="info-card">
+                <h2>Event Overview</h2>
+                <p>{{event.description}}</p>
+                
+                <div class="quick-facts">
+                  <div class="fact">
+                    <div class="fact-icon">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="fact-content">
+                      <h4>Starting Price</h4>
+                      <p>{{event.price | currency}}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="fact">
+                    <div class="fact-icon">
+                      <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="fact-content">
+                      <h4>Duration</h4>
+                      <p>{{event.duration}}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="fact">
+                    <div class="fact-icon">
+                      <i class="fas fa-users"></i>
+                    </div>
+                    <div class="fact-content">
+                      <h4>Max Guests</h4>
+                      <p>{{event.maxGuests}} people</p>
+                    </div>
+                  </div>
+                  
+                  <div class="fact">
+                    <div class="fact-icon">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="fact-content">
+                      <h4>Location</h4>
+                      <p>{{event.location}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h2>What's Included</h2>
+                <div class="features-list">
+                  <div class="feature-item" *ngFor="let feature of event.features">
+                    <i class="fas fa-check-circle"></i>
+                    <span>{{feature}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Card -->
+            <div class="booking-sidebar">
+              <div class="booking-card">
+                <div class="price-header">
+                  <h3>{{event.price | currency}}</h3>
+                  <span>Starting price</span>
+                </div>
+                
+                <div class="booking-info">
+                  <div class="info-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Flexible scheduling available</span>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100% satisfaction guarantee</span>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-headset"></i>
+                    <span>24/7 customer support</span>
+                  </div>
+                </div>
+                
+                <a [routerLink]="['/book', event.id]" class="btn btn-primary btn-full">
+                  <i class="fas fa-calendar-plus"></i>
+                  Book This Event
+                </a>
+                
+                <div class="contact-info">
+                  <p>Need help? Call us at</p>
+                  <a href="tel:+1234567890" class="phone-link">
+                    <i class="fas fa-phone"></i>
+                    (123) 456-7890
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Events -->
+      <section class="related-events py-4">
+        <div class="container">
+          <h2>Similar Events You Might Like</h2>
+          <div class="related-grid">
+            <div class="related-card" *ngFor="let relatedEvent of relatedEvents">
+              <div class="related-image">
+                <img [src]="relatedEvent.image" [alt]="relatedEvent.title">
+                <div class="related-category">{{relatedEvent.category}}</div>
+              </div>
+              <div class="related-content">
+                <h4>{{relatedEvent.title}}</h4>
+                <p>{{relatedEvent.price | currency}}</p>
+                <a [routerLink]="['/events', relatedEvent.id]" class="btn btn-secondary btn-sm">
+                  View Details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="loading-container" *ngIf="!event && !notFound">
+      <div class="loading-spinner"></div>
+      <p>Loading event details...</p>
+    </div>
+
+    <div class="not-found" *ngIf="notFound">
+      <div class="container">
+        <div class="not-found-content">
+          <i class="fas fa-calendar-times"></i>
+          <h2>Event Not Found</h2>
+          <p>The event you're looking for doesn't exist or has been removed.</p>
+          <a routerLink="/events" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i>
+            Back to Events
+          </a>
+        </div>
+      </div>
+    </div>

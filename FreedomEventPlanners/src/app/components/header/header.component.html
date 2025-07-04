@@ -1,0 +1,55 @@
+ <header class="header">
+      <nav class="navbar">
+        <div class="container">
+          <div class="nav-content">
+            <div class="nav-brand">
+              <a routerLink="/" class="brand-link">
+                <i class="fas fa-calendar-star"></i>
+                <span class="brand-text">FREEDOM</span>
+                <span class="brand-subtitle">Event Planners</span>
+              </a>
+            </div>
+            
+            <div class="nav-menu" [class.active]="isMenuOpen">
+              <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+                <i class="fas fa-home"></i> Home
+              </a>
+              <a routerLink="/events" routerLinkActive="active" class="nav-link">
+                <i class="fas fa-calendar"></i> Events
+              </a>
+              
+              <div class="nav-auth" *ngIf="!currentUser">
+                <a routerLink="/login" routerLinkActive="active" class="nav-link">
+                  <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a routerLink="/signup" class="btn btn-primary nav-btn">
+                  <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+              </div>
+              
+              <div class="nav-user" *ngIf="currentUser">
+                <div class="user-dropdown" [class.active]="isDropdownOpen">
+                  <button class="user-button" (click)="toggleDropdown()">
+                    <i class="fas fa-user-circle"></i>
+                    <span>{{currentUser.firstName}}</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a routerLink="/bookings" class="dropdown-item">
+                      <i class="fas fa-calendar-check"></i> My Bookings
+                    </a>
+                    <button class="dropdown-item" (click)="logout()">
+                      <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <button class="mobile-toggle" (click)="toggleMenu()">
+              <i class="fas" [class.fa-bars]="!isMenuOpen" [class.fa-times]="isMenuOpen"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>

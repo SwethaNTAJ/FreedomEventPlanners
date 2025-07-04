@@ -1,0 +1,227 @@
+ 
+    .booking-page {
+      padding: 2rem 0;
+      min-height: 100vh;
+      background: #f8f9fa;
+    }
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .booking-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .booking-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+    }
+
+    .form-card, .summary-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-card h2, .summary-card h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-hint {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .btn-large {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .event-preview {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .event-preview img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .event-info h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .event-info p {
+      color: #666;
+      margin: 0;
+    }
+
+    .summary-details {
+      margin-bottom: 2rem;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .detail-row .label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .detail-row .value {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .price-breakdown {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-row.total {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #667eea;
+      padding-top: 0.5rem;
+      border-top: 2px solid #667eea;
+      margin-top: 1rem;
+    }
+
+    .included-features h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .included-features ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .included-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    .included-features i {
+      color: #4CAF50;
+      font-size: 0.9rem;
+    }
+
+    .summary-card {
+      position: sticky;
+      top: 2rem;
+      height: fit-content;
+    }
+
+    .not-found {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .not-found-content {
+      text-align: center;
+      color: #666;
+    }
+
+    .not-found-content i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+
+    .not-found-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .not-found-content p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-header h1 {
+        font-size: 2rem;
+      }
+
+      .summary-card {
+        position: static;
+      }
+    } 

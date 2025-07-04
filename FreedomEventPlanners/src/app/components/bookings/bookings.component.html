@@ -1,0 +1,160 @@
+ <div class="bookings-page">
+      <div class="container">
+        <!-- Success Message -->
+        <div class="success-alert" *ngIf="showSuccessMessage">
+          <div class="alert-content">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <h4>Booking Confirmed!</h4>
+              <p>Your event has been successfully booked. We'll contact you soon with more details.</p>
+            </div>
+            <button class="close-btn" (click)="showSuccessMessage = false">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <h1>My Bookings</h1>
+          <p>Manage and view all your event bookings</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" *ngIf="isLoading">
+          <div class="loading-spinner"></div>
+          <p>Loading your bookings...</p>
+        </div>
+
+        <!-- No Bookings -->
+        <div class="no-bookings" *ngIf="!isLoading && bookings.length === 0">
+          <div class="no-bookings-content">
+            <i class="fas fa-calendar-times"></i>
+            <h3>No Bookings Yet</h3>
+            <p>You haven't made any event bookings yet. Start planning your perfect event!</p>
+            <a routerLink="/events" class="btn btn-primary">
+              <i class="fas fa-calendar-plus"></i>
+              Browse Events
+            </a>
+          </div>
+        </div>
+
+        <!-- Bookings List -->
+        <div class="bookings-list" *ngIf="!isLoading && bookings.length > 0">
+          <div class="booking-card" *ngFor="let booking of bookings">
+            <div class="booking-header">
+              <div class="booking-title">
+                <h3>{{booking.eventTitle}}</h3>
+                <span class="booking-id">#{{booking.id}}</span>
+              </div>
+              <div class="booking-status" [class]="'status-' + booking.status">
+                <i class="fas" 
+                   [class.fa-clock]="booking.status === 'pending'"
+                   [class.fa-check-circle]="booking.status === 'confirmed'"
+                   [class.fa-times-circle]="booking.status === 'cancelled'">
+                </i>
+                {{booking.status | titlecase}}
+              </div>
+            </div>
+
+            <div class="booking-content">
+              <div class="booking-details">
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <i class="fas fa-calendar"></i>
+                    <div>
+                      <span class="label">Date</span>
+                      <span class="value">{{formatDate(booking.date)}}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                      <span class="label">Time</span>
+                      <span class="value">{{formatTime(booking.time)}}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                      <span class="label">Guests</span>
+                      <span class="value">{{booking.guests}} people</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>
+                      <span class="label">Total</span>
+                      <span class="value">{{booking.totalPrice | currency}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="contact-info" *ngIf="booking.contactInfo">
+                  <h4>Contact Information</h4>
+                  <div class="contact-grid">
+                    <div class="contact-item">
+                      <i class="fas fa-user"></i>
+                      <span>{{booking.contactInfo.name}}</span>
+                    </div>
+                    <div class="contact-item">
+                      <i class="fas fa-envelope"></i>
+                      <span>{{booking.contactInfo.email}}</span>
+                    </div>
+                    <div class="contact-item">
+                      <i class="fas fa-phone"></i>
+                      <span>{{booking.contactInfo.phone}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="special-requests" *ngIf="booking.specialRequests">
+                  <h4>Special Requests</h4>
+                  <p>{{booking.specialRequests}}</p>
+                </div>
+              </div>
+
+              <div class="booking-actions">
+                <a [routerLink]="['/events', booking.eventId]" class="btn btn-secondary">
+                  <i class="fas fa-eye"></i>
+                  View Event
+                </a>
+                <button class="btn btn-primary" *ngIf="booking.status === 'pending'">
+                  <i class="fas fa-edit"></i>
+                  Modify Booking
+                </button>
+                <button class="btn btn-danger" *ngIf="booking.status !== 'cancelled'">
+                  <i class="fas fa-times"></i>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions" *ngIf="!isLoading">
+          <h3>Quick Actions</h3>
+          <div class="actions-grid">
+            <a routerLink="/events" class="action-card">
+              <i class="fas fa-calendar-plus"></i>
+              <h4>Book New Event</h4>
+              <p>Browse our event packages and book your next celebration</p>
+            </a>
+            <a href="tel:+1234567890" class="action-card">
+              <i class="fas fa-phone"></i>
+              <h4>Contact Support</h4>
+              <p>Need help with your booking? Call our support team</p>
+            </a>
+            <a href="mailto:support@freedomeventplanners.com" class="action-card">
+              <i class="fas fa-envelope"></i>
+              <h4>Email Us</h4>
+              <p>Send us an email for any questions or special requests</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>

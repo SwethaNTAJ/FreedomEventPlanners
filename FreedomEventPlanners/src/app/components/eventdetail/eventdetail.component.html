@@ -38,11 +38,11 @@
                 <div class="quick-facts">
                   <div class="fact">
                     <div class="fact-icon">
-                      <i class="fas fa-dollar-sign"></i>
+                      <i class="fas fa-inr"></i>
                     </div>
                     <div class="fact-content">
                       <h4>Starting Price</h4>
-                      <p>{{event.price | currency}}</p>
+                      <p>{{event.price | currency :"INR":"symbol"}}</p>
                     </div>
                   </div>
                   
@@ -93,7 +93,7 @@
             <div class="booking-sidebar">
               <div class="booking-card">
                 <div class="price-header">
-                  <h3>{{event.price | currency}}</h3>
+                  <h3>{{event.price | currency:"INR":'symbol'}}</h3>
                   <span>Starting price</span>
                 </div>
                 

@@ -84,14 +84,14 @@
             <div class="event-card" *ngFor="let event of featuredEvents">
               <div class="event-image">
                 <img [src]="event.image" [alt]="event.title">
-                <div class="event-category">{{event.category}}</div>
+                <div class="event-category">{{event.category}}</div><br>
               </div>
               <div class="event-content">
                 <h3>{{event.title}}</h3>
                 <p>{{event.description}}</p>
                 <div class="event-details">
                   <div class="event-price">
-                    <i class=" "></i>
+                    <i class="mt-2 "></i>
                     <span>{{event.price | currency:'INR':'symbol'}}</span>
                   </div>
                   <div class="event-duration">

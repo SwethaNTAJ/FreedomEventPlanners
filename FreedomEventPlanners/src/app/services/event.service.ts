@@ -52,7 +52,7 @@ export class EventService {
     {
       id: '2',
       title: 'Corporate Conference',
-      description: 'Professional corporate event planning for conferences, seminars, and business meetings with full technical support.',
+      description: 'Professional corporate event planning for conferences, seminars, and business meetings with full technical support here you can see all changes  .',
       category: 'Corporate',
       price: 1800,
       duration: '6 hours',
@@ -64,7 +64,7 @@ export class EventService {
     {
       id: '3',
       title: 'Birthday Celebration',
-      description: 'Make birthdays unforgettable with our creative party planning services. Perfect for all ages with customizable themes.',
+      description: 'Make birthdays unforgettable with our creative party planning services. Perfect for all ages with customizable themes also you can here .',
       category: 'Birthday',
       price: 800,
       duration: '4 hours',

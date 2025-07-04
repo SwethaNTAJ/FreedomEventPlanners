@@ -85,10 +85,10 @@
                   </div>
 
                   <div class="detail-item">
-                    <i class="fas fa-dollar-sign"></i>
+                    <i class="fas fa-inr"></i>
                     <div>
                       <span class="label">Total</span>
-                      <span class="value">{{booking.totalPrice | currency}}</span>
+                      <span class="value">{{booking.totalPrice | currency :"INR":'symbol'}}</span>
                     </div>
                   </div>
                 </div>
